@@ -1,0 +1,41 @@
+name = "duo-scan"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+# Check Apple every minute.
+[triggers]
+crons = ["* * * * *"]
+
+[vars]
+# Push notifications go to this ntfy channel. Subscribe to it in the ntfy app.
+NTFY_TOPIC = "duo-scan-1456e0f7a6e496c6"
+
+# What to look for.
+PRODUCT_SLUG = "iphone-duo"   # apple.com/shop/buy-iphone/<slug>
+CAPACITY = "256gb"
+COLOR = "black"
+CARRIER = "unlocked"
+# Optional: comma-separated part numbers (e.g. "MXXX3LL/A"). Leave empty to
+# read them from Apple's buy page automatically.
+PART_NUMBERS = ""
+
+# Where to look: home ZIP plus extra ZIPs so Apple returns stores across the
+# whole 2-hour radius (Sacramento, East Bay/SF, South Bay, Reno).
+HOME_ZIP = "95831"
+HOME_LAT = "38.4960"
+HOME_LON = "-121.5300"
+SEARCH_ZIPS = "95831,94596,94103,95050,89502"
+MAX_MILES = "130"   # straight-line miles from home; ~2 hours of driving
+
+# Remember what was already seen between runs (free SQLite-backed Durable Object).
+[[durable_objects.bindings]]
+name = "STATE"
+class_name = "State"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["State"]
+
+[observability]
+enabled = true

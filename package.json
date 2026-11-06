@@ -1,0 +1,12 @@
+{
+  "name": "duo-scan",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --import ./test/register.mjs --test test/run.test.mjs",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.40.0"
+  }
+}
