@@ -50,7 +50,7 @@ export default {
     if (pathname === "/check") return json(await run(env));
     if (pathname === "/parts") {
       const html = await fetchText(buyUrl(env));
-      return json(debugParts(html, env));
+      return text(debugParts(html, env));
     }
     return json((await store.get("status")) ?? { message: "No check has run yet." });
   },
@@ -214,14 +214,22 @@ export function findParts(html, env) {
 }
 
 function debugParts(html, env) {
-  const all = [];
+  // Short, screenshot-friendly summary of what's on Apple's page.
+  const out = [`Page size: ${html.length} chars`, `Matching ${describeModel(env)}: ${findParts(html, env).join(", ") || "none"}`];
   const seen = new Set();
   for (const m of html.matchAll(PART_RE)) {
     if (seen.has(m[1])) continue;
     seen.add(m[1]);
-    all.push({ part: m[1], context: enclosingObject(html, m.index).slice(0, 400) });
+    const obj = enclosingObject(html, m.index);
+    const words = [...new Set((obj.match(/"[a-zA-Z_]*(?:capacity|color|carrier|dimension)[a-zA-Z_]*"\s*:\s*"[^"]{1,40}"/gi) || []))].slice(0, 6);
+    out.push(`${m[1]}  ${words.join(" ") || obj.slice(0, 160)}`);
   }
-  return { matching: findParts(html, env), all };
+  out.splice(2, 0, `Part numbers on page: ${seen.size}`);
+  if (!seen.size) {
+    const hints = [...html.matchAll(/.{0,80}(?:partNumber|256gb|256GB|"sku").{0,80}/g)].slice(0, 8).map((x) => "… " + x[0]);
+    out.push("No partNumber fields. Nearby text:", ...hints);
+  }
+  return out.join("\n");
 }
 
 // Return the text of the smallest {...} JSON object around position idx.
