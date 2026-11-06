@@ -333,7 +333,7 @@ function stateStub(env) {
 }
 
 function describeModel(env) {
-  return `${env.CAPACITY.toUpperCase()} ${cap(env.COLOR)} ${cap(env.CARRIER)}`;
+  return [String(env.CAPACITY || "").toUpperCase(), cap(env.COLOR), cap(env.CARRIER)].filter(Boolean).join(" ");
 }
 
 function list(s) {
@@ -341,7 +341,7 @@ function list(s) {
 }
 
 function cap(s) {
-  return String(s || "").replace(/^./, (c) => c.toUpperCase());
+  return String(s || "").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function stripTags(s) {

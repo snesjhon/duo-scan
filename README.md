@@ -1,7 +1,7 @@
 # duo-scan
 
 A Cloudflare Worker that checks Apple Store pickup availability for the
-**iPhone Duo 256GB Black, unlocked** every minute, across stores within about
+**iPhone Duo 256GB Night Sky** (part MK1F4LL/A) every minute, across stores within about
 2 hours of 95831. When one has stock, it sends an urgent push notification to
 your phone through the free [ntfy](https://ntfy.sh) app. Tap the notification
 to open Apple's page and reserve.

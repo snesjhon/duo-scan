@@ -14,11 +14,11 @@ NTFY_TOPIC = "duo-scan-1456e0f7a6e496c6"
 # What to look for.
 PRODUCT_SLUG = "iphone-duo"   # apple.com/shop/buy-iphone/<slug>
 CAPACITY = "256gb"
-COLOR = "black"
-CARRIER = "unlocked"
+COLOR = "night sky"   # Apple's name for the black iPhone Duo
+CARRIER = ""   # iPhone Duo has no carrier option on apple.com; all are unlocked
 # Optional: comma-separated part numbers (e.g. "MXXX3LL/A"). Leave empty to
 # read them from Apple's buy page automatically.
-PART_NUMBERS = ""
+PART_NUMBERS = "MK1F4LL/A"   # iPhone Duo 256GB Night Sky
 
 # Where to look: home ZIP plus extra ZIPs so Apple returns stores across the
 # whole 2-hour radius (Sacramento, East Bay/SF, South Bay, Reno).
