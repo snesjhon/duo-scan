@@ -3,9 +3,9 @@ main = "src/index.js"
 compatibility_date = "2026-10-01"
 workers_dev = true
 
-# Check Apple every minute.
+# Was: check Apple every minute ("* * * * *").
 [triggers]
-crons = ["* * * * *"]
+crons = []   # schedule turned off: Apple refuses requests from Cloudflare (HTTP 541)
 
 [vars]
 # Push notifications go to this ntfy channel. Subscribe to it in the ntfy app.
